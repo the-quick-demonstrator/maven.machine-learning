@@ -14,15 +14,6 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class MultiLayerPerceptionExample {
-
-    public static void main(String[] args) {
-        MultiLayerPerceptionExample mlp = new MultiLayerPerceptionExample();
-        long startTime = System.currentTimeMillis();
-        Pair<INDArray, INDArray> XY = mlp.prepareTrainingData(System.getProperty("user.dir") + "/src/main/java/resources/names.txt");
-        long endTime = System.currentTimeMillis();
-        System.out.printf("Training Completed in %d ms\n", endTime - startTime);
-    }
-
     /**
      * Create our X-input and Y-output vectors for Training;
      *
