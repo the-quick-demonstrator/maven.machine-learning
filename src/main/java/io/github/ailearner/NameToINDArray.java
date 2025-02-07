@@ -13,18 +13,14 @@ import java.util.List;
 public class NameToINDArray {
     private static final int BLOCK_SIZE = 3;
     private static final int END_TOKEN = 0; // Representing end of input
+    private final List<String> lines;
 
-    public static void main(String[] args) throws IOException {
-        final long startTime = System.currentTimeMillis();
-        // Read file (assuming it contains only one name)
-        final String filePath = DirectoryReference.RESOURCE.getAbsolutePath("/names.txt");
-        final List<String> lines = Files.readAllLines(Path.of(filePath));
+    public NameToINDArray(final String filePath) throws IOException {
+        this.lines = Files.readAllLines(Path.of(filePath));
+    }
 
-        if (lines.isEmpty()) {
-            return;
-        }
-
-        // Read first name and process
+    public void run() {
+        // Read name and process
         for (final String name : lines) {
             final int[] encodedName = encodeName(name);
 
@@ -44,8 +40,6 @@ public class NameToINDArray {
                 System.out.printf("Given: %s  --> Expect: %.4f%n", x, y.getDouble(0));
             }
         }
-        final long endTime = System.currentTimeMillis();
-        System.out.printf("Training Completed in %d ms\n", endTime - startTime);
     }
 
     private static int[] encodeName(String name) {
@@ -58,8 +52,7 @@ public class NameToINDArray {
     }
 
     private static int[] getContext(
-            final int[] encodedName,
-            final int index) {
+            final int[] encodedName, final int index) {
         final int[] context = new int[BLOCK_SIZE];
         final int start = index - BLOCK_SIZE;
 
